@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikolaos Katrantzis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        html{
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: white;
+            background-image:
+                linear-gradient(to right, lightgray 1px, transparent 1px),
+                linear-gradient(to bottom, lightgray 1px, transparent 1px);
+            background-size: 30px 30px; /* Größe des Karomusters anpassen */
+            margin: 0;
+            padding-right: 20px; /* Zusätzlicher rechter Padding, um Platz für die Scrollbar zu schaffen */
+            font-family: Arial, sans-serif; /* Beispiel-Schriftart */
+            overflow-y: scroll; /* Immer eine Scrollleiste anzeigen */
+        }
+
+        body::-webkit-scrollbar {
+            /* Versteckt die Scrollleiste in Webkit-basierten Browsern (wie Chrome und Safari) */
+            display: none;
+        }
+
+        /* Das ist glaube ich  der container für die navbar */
+        .container {
+            position: fixed;
+            top: 50%; /* Zentriert vertikal */
+            right: 20px; /* Abstand vom rechten Rand */
+            transform: translateY(-50%); /* Zentriert vertikal */
+            width: 160px; /* Breite des Containers */
+            height: 80vh; /* Höhe des Containers, entspricht 80% der Bildschirmhöhe */
+            background-color: rgba(255, 255, 255, 0.8); /* Halbtransparenter Hintergrund */
+            border-radius: 30px; /* Abgerundete Ecken */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Tiefenwirkung */
+            z-index: 1000; /* Damit der Container immer im Vordergrund bleibt */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            transition: top 10s; /* Übergangseffekte für die Positionierung */
+        }
+
+        /* Padding für Erste seite */
+
+        .section {
+            padding: 300px 50px;
+            padding-bottom: 200px; /* Oberer Abstand für den Inhalt verringert */
+
+            /* Hier habe ich die untere Padding auf 500px erhöht, damit du weiter nach unten scrollen kannst */
+        }
+        
+            /*Padding für zweite Seite */
+        .sectionn {
+            padding: 10px 50px;
+            padding-bottom: 20px;
+
+        }
+            /* Padding für dritte Seite */
+        .sectionnn {
+            padding: 10px 50px;
+            padding-bottom: 80px;
+            padding-top: -100px;
+
+        }
+
+        /* Padding für vierte Seite */
+        .sectionnnn {
+            padding: 10px 50px;
+            padding-bottom: 500px;
+
+        }
+
+        .section h2 {
+            margin-top: -180px;
+            
+        }
+
+        /* Für die erste Seite */
+        .content-container {
+            display: flex;
+            gap: 20px; /* Abstand zwischen den Containern */
+        }
+
+        .image-container {
+            flex: 1; /* Container für das Bild */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .text-container {
+            flex: 2; /* Container für den Text */
+            right:-100px
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+
+        }
+
+
+
+
+        
+    </style>
+    
+
+
+
+                 
+<title>Foto Karussell</title>
+<style>
+    .carousel {
+        width: 800px;
+        height: 600px;
+        margin: auto;
+        overflow: hidden;
+        border: 0px solid #000;
+        position: relative;
+        left: -80px;
+    }
+    .carousel img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+    }
+    .carousel img.active {
+        display: block;
+    }
+    .controls {
+        text-align:center;
+        margin-top: 30px;
+        margin-left: -230px;
+    }
+    .controls button {
+        padding: 5px 10px;
+        margin: 0 5px;
+    }
+</style>
+
+<style>
+    
+</style>
+
+<style>
+    .navbar {
+    width: 100%; /* Volle Breite für die Navbar im Container */
+    display: flex;
+    flex-direction: column; /* Vertikale Anordnung der Links */
+    align-items: center;
+    padding: 20px 0; /* Innenabstand oben und unten */
+}
+
+.navbar a {
+    text-decoration: none;
+    color: black;
+    font-size: 45px; /* Kleinere Schriftgröße für Icons */
+    padding: 40px; /* Innenabstand der Links */
+    transition: background-color 0,6s; /* Animation beim Hover */
+    width: 30%; /* Volle Breite für das Link-Element */
+    height: 30px; /* Feste Höhe für das Link-Element */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px; /* Abstand zwischen den Links verringert */
+    position: relative; /* Position relativ für die korrekte Platzierung des Punktes */
+}
+
+.navbar a:hover {
+    background-color: #00ff0030; /* Hintergrundfarbe beim Hover */
+    border-radius: 10px; /* Abgerundete Ecken für das graue Hintergrundviereck */
+}
+
+.navbar .active {
+    background-color: #00ff00c7; /* Hintergrundfarbe für das aktive Element */
+    border-radius: 10px; /* Abgerundete Ecken für das graue Hintergrundviereck */
+}
+
+.current {
+    position: absolute; /* Position absolut für den Punkt */
+    top: 50%; /* Zentriert vertikal */
+    right: -15px; /* Abstand vom rechten Rand des Links */
+    transform: translateY(-50%); /* Zentriert vertikal */
+    width: 10px;
+    height: 10px;
+    background-color: #00ff00;
+    border-radius: 50%;
+    z-index: 999; /* Stellen Sie sicher, dass der Punkt über allem anderen liegt */
+    display: none; /* Standardmäßig ausgeblendet, wird durch JavaScript sichtbar gemacht */
+}
+
+</style>
+
+
+</head>
+<body>
+
+    <div class="container" id="container">
+        <div class="navbar">
+            <a href="#about" class="active"><i class="fas fa-user"></i></a>
+            <a href="#experience"><i class="fas fa-briefcase"></i></a>
+            <a href="#skills"><i class="fas fa-tools"></i></a>
+            <a href="#contact"><i class="fas fa-envelope"></i></a>
+        </div>
+    </div>
+    
+    <div class="current" id="current-dot"></div>
+    
+
+
+    <section id="about" class="section">
+        <h2 style="font-size: 3rem">🍀 Hallo, ich bin Nikolaos Katrantzis</h2>
+        <div class="content-container">
+            <div class="image-container">
+                <img src="iwas3.png" alt="Bild von mir">
+            </div>
+            <div class="text-container">
+                <p><span style="font-size: x-large;">{</span></p>
+                <p><span style="font-size: x-large;"><strong>Momentan studiere ich&nbsp;<em><span style="background-color: #00ff00;">BWL</span></em>. Meine&nbsp;Leidenschaft ist <em><span style="background-color: #00ff00;">die Erstellung&nbsp;</span></em></strong></span></p>
+                <p><span style="font-size: x-large;"><strong><em><span style="background-color: #00ff00;">vielf&auml;ltiger Projekte in&nbsp;allen m&ouml;glichen Bereichen</span></em>, wie Sie weiter&nbsp;</strong></span></p>
+                <p><span style="font-size: x-large;"><strong>unten sehen werden.&nbsp;Daher ist mein Leben bis jetzt gepr&auml;gt von</strong></span></p>
+                <div>
+                <p><span style="font-size: x-large;"><strong>der Erforschung von&nbsp;<em><span style="text-decoration: underline;">Technologie, Medien und Gesellschaft</span></em>&nbsp;und</strong></span></p>
+                <p><span style="font-size: x-large;"><strong>wie diese&nbsp;<em>unsere <span style="background-color: #00ff00;">Welt formen</span></em>.</strong></span></p>
+                <p><span style="font-size: x-large;">}</span></p>
+            </div>
+                <p>___________________________________________________</p>
+                <a>[</a><a>>>></a><a href="Lebenslauf.pdf" download>Lebenslauf herunterladen</a>    <a>  <<<   </a>   ] [<a>  </a> >>> <a href="#experience">Mehr über mich</a> <a> <<<</a><a> ]</a>
+                <p> ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞  ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ ͞ </p>
+            </div>
+        </div>
+    </section>
+
+  
+
+
+
+    
+    <section id="experience" class="sectionn">
+        <div class="content-container">
+            <div class="image-container">
+                <img src="exp.png" alt="Meine Erfahrungen">
+            </div>
+        </div>    
+    </section>
+   
+   
+   
+   
+
+
+   
+   
+   
+    <section id="skills" class="sectionnn">
+        
+        <h2 style="font-size: 3rem">✨ Meine Skills</h2>
+        
+        <div class="carousel">
+            <img src="skill1.png" class="active">
+            <img src="skill2.png">
+            <img src="skill3.png">
+            <img src="skill4.png">
+            <img src="skill5.png">
+            <img src="skill6.png">
+        </div>
+        <div class="controls">
+            <button onclick="prevImage()">Vorheriges</button>
+            <button onclick="nextImage()">Nächstes</button>
+        </div>
+    
+        <script>
+            let currentIndex = 0;
+            const images = document.querySelectorAll('.carousel img');
+    
+            function showImage(index) {
+                images.forEach((img, i) => {
+                    img.classList.toggle('active', i === index);
+                });
+            }
+    
+            function prevImage() {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : images.length - 1;
+                showImage(currentIndex);
+            }
+    
+            function nextImage() {
+                currentIndex = (currentIndex < images.length - 1) ? currentIndex + 1 : 0;
+                showImage(currentIndex);
+            }
+        </script>
+
+
+    </section>
+   
+   
+   
+   
+   
+   
+   
+   
+    <section id="contact" class="sectionnnn">
+        <h2 style="font-size: 3rem">📬 Kontakt</h2>
+        <div class="content-container">
+            <div class="image-container">
+                <img src="contactt.png" alt="Kontakt">
+            </div>
+        </div>   
+        
+    </section>
+
+
+
+
+
+    <script>
+        // JavaScript zum Umschalten der Navbar zwischen horizontal und vertikal beim Scrollen
+        window.addEventListener('scroll', function() {
+            var sections = document.querySelectorAll('.section, .sectionn, .sectionnn, .sectionnnn');
+            var currentDot = document.getElementById('current-dot');
+            var scrollPosition = window.scrollY;
+    
+            sections.forEach(function(section, index) {
+                var sectionTop = section.offsetTop - 120; // Adjusted for padding-top of .section
+                var sectionBottom = sectionTop + section.offsetHeight;
+    
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    var links = document.querySelectorAll('.navbar a');
+                    links.forEach(function(link) {
+                        link.classList.remove('active');
+                    });
+                    var correspondingLink = document.querySelectorAll('.navbar a')[index];
+                    correspondingLink.classList.add('active');
+    
+                    // Positioning current dot
+                    var navHeight = document.querySelector('.navbar').offsetTop + correspondingLink.offsetTop + correspondingLink.offsetHeight / 2;
+                    currentDot.style.top = navHeight + 'px';
+                    currentDot.style.display = 'block';
+                }
+            });
+        });
+    </script>
+    
+
+
+
+
+</body>
+</html>
